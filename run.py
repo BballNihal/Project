@@ -34,36 +34,35 @@ def minute(minutes):
     return 44 <= minutes <= 51
 
 while True:
-    # Specify the URL
+    # website URL:
     url = "https://www.merfolkslullaby.com/map?&tab=weather"
 
-    # Set up the Selenium webdriver
+    # Selenium
     options = Options()
-    options.add_argument("--headless")  # Run in headless mode, without opening a browser window
-    options.add_argument("--log-level=3")  # Disable logging output
-    service = Service('path/to/chromedriver')  # Replace 'path/to/chromedriver' with the actual path to the ChromeDriver executable
+    options.add_argument("--headless")  
+    options.add_argument("--log-level=3")  
+    service = Service('path/to/chromedriver')  # Replace 'path/to/chromedriver' with actual path to the ChromeDriver executable
     driver = webdriver.Chrome(service=service, options=options)
 
 
-    # Navigate to the webpage
+    # Navigate to merfolks
     driver.get(url)
 
-    # Wait for the data to load
-    time.sleep(8)  # Adjust the delay as needed
+    # Wait for page to load
+    time.sleep(8)  
 
-    # Extract the desired data
+    # Extract data
     content = driver.page_source
 
-    # Parse the HTML content with BeautifulSoup
+    # Parse HTML content
     soup = BeautifulSoup(content, "html.parser")
 
-    # Find elements with the specified CSS class, excluding image elements
+    # Find elements in CSS class
     elements = soup.find_all(class_="sc-c76a0318-2 iSTIet", img=False)
 
     # Extract the text from the elements
     data = [element.get_text() for element in elements if element.get_text().startswith("The Glorious Sea Dog Tavern")] 
 
-    # Join the extracted text with newlines
     # output_data = "\n".join(data)
 
     output_data = ""
